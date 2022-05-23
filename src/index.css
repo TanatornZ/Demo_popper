@@ -2,18 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
-#tooltip {
-  background: #333;
-  color: white;
+#container {
+  position: relative;
+}
+
+#popcorn {
+  display: inline-block;
+  width: 134px;
+  height: 120px;
+  background-image: url("https://popper.js.org/images/popcorn-box.svg");
+  margin-left: 80px;
+}
+
+#flipTooltip {
+  background: #fff;
+  color: #333;
   font-weight: bold;
-  padding: 4px 8px;
-  font-size: 13px;
+  padding: 5px 8px;
+  font-size: 15px;
+  border-radius: 4px;
+}
+
+#tooltip {
+  background: #fff;
+  color: #333;
+  font-weight: bold;
+  padding: 5px 8px;
+  font-size: 15px;
   border-radius: 4px;
   display: none;
 }
 
 #tooltip[data-show] {
   display: block;
+}
+
+
+#flipTooltip[data-popper-placement^="top"] > #arrow {
+  bottom: -4px;
+}
+
+#flipTooltip[data-popper-placement^="bottom"] > #arrow {
+  top: -4px;
+}
+
+#flipTooltip[data-popper-placement^="left"] > #arrow {
+  right: -4px;
+}
+
+#flipTooltip[data-popper-placement^="right"] > #arrow {
+  left: -4px;
+}
+
+
+
+#tooltip[data-popper-placement^="top"] > #arrow {
+  bottom: -4px;
+}
+
+#tooltip[data-popper-placement^="bottom"] > #arrow {
+  top: -4px;
+}
+
+#tooltip[data-popper-placement^="left"] > #arrow {
+  right: -4px;
+}
+
+#tooltip[data-popper-placement^="right"] > #arrow {
+  left: -4px;
 }
 
 #arrow,
@@ -32,20 +88,4 @@
   visibility: visible;
   content: "";
   transform: rotate(45deg);
-}
-
-#tooltip[data-popper-placement^="top"] > #arrow {
-  bottom: -4px;
-}
-
-#tooltip[data-popper-placement^="bottom"] > #arrow {
-  top: -4px;
-}
-
-#tooltip[data-popper-placement^="left"] > #arrow {
-  right: -4px;
-}
-
-#tooltip[data-popper-placement^="right"] > #arrow {
-  left: -4px;
 }
