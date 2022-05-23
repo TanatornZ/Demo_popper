@@ -31,10 +31,10 @@ function App() {
       {
         name: "offset",
         options: {
-          offset: [0, 8],
+          offset: [0, 5],
         },
       },
-      { name: "arrow", options: { element: arrowElement, padding: 10 } },
+      { name: "arrow", options: { element: arrowElement, padding: 5 } },
     ],
   });
 
@@ -87,14 +87,13 @@ function App() {
       <button
         className="p-5 rounded-lg bg-red-100 self-center"
         ref={(ref) => setReferenceElement(ref)}
-        id="button"
         aria-describedby="tooltip"
-        // onClick={() => setShowPopper(!showPopper)}
       >
-        click to show popper
+        Hover to show popper
       </button>
-      <p
+      <div
         id="tooltip"
+        role='tooltip'
         ref={(ref) => setPopperElement(ref)}
         style={styles.popper}
         {...attributes.popper}
@@ -106,7 +105,7 @@ function App() {
           style={styles.arrow}
           data-popper-arrow
         ></div>
-      </p>
+      </div>
 
       <Filp />
     </div>

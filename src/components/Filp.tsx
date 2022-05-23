@@ -26,7 +26,8 @@ function Filp({}: Props) {
           offset: [0, 10],
         },
       },
-      { name: "arrow", options: { element: arrowFlipElement } },
+      { name: "arrow", options: { element: arrowFlipElement }  },
+      
     ],
   });
 
