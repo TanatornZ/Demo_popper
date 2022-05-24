@@ -2,6 +2,7 @@ import { Placement } from "@popperjs/core";
 import React, { useState } from "react";
 import { usePopper } from "react-popper";
 import Select from "react-select";
+import { checkPosition } from "../utils/possition";
 
 type Props = {};
 
@@ -11,9 +12,17 @@ function SelectPlacement({}: Props) {
 
   const options = [
     { value: "top", label: "top" },
+    { value: "top-start", label: "top-start" },
+    { value: "top-end", label: "top-end" },
     { value: "right", label: "right" },
+    { value: "right-start", label: "right-start" },
+    { value: "right-end", label: "right-end" },
+    { value: "left-end", label: "left-end" },
+    { value: "left-start", label: "left-start" },
     { value: "left", label: "left" },
     { value: "bottom", label: "bottom" },
+    { value: "bottom-start", label: "bottom-start" },
+    { value: "bottom-end", label: "bottom-end" },
   ];
 
   const [referenceElement, setReferenceElement] =
@@ -73,20 +82,8 @@ function SelectPlacement({}: Props) {
             const option = e?.value;
             if (option) {
               setOption(option);
-              switch (option) {
-                case "left":
-                  setPosition("left");
-                  break;
-                case "right":
-                  setPosition("right");
-                  break;
-                case "top":
-                  setPosition("top");
-                  break;
-                case "bottom":
-                  setPosition("bottom");
-                  break;
-              }
+              const pos = checkPosition(option);
+              if (pos) setPosition(pos);
             }
           }}
           defaultValue={options[0]}

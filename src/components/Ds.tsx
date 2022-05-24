@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Downshift, { useSelect } from "downshift";
 import { Placement } from "@popperjs/core";
 import { usePopper } from "react-popper";
+import { checkPosition } from "../utils/possition";
 
-const items = ["top", "right", "bottom", "left"];
+const items = ["top","top-start","top-end" , "right" ,"right-start" , "right-end" , "bottom","bottom-start" ,"bottom-end", "left","left-start" , "left-end" ];
 
 export const Ds = () => {
   const [position, setPosition] = useState<Placement>("top");
@@ -61,17 +62,9 @@ export const Ds = () => {
     selectedItem: position,
     onSelectedItemChange: (e) => {
       if (e.selectedItem) {
-        switch (e.selectedItem) {
-          case "left":
-            return setPosition("left");
-          case "right":
-            return setPosition("right");
-          case "top":
-            return setPosition("top");
-
-          case "bottom":
-            return setPosition("bottom");
-        }
+          const pos = checkPosition(e.selectedItem)
+          if (pos) setPosition(pos)
+      
       }
     },
   });
