@@ -11,7 +11,6 @@
   width: 134px;
   height: 120px;
   background-image: url("https://popper.js.org/images/popcorn-box.svg");
-  
 }
 
 #flipTooltip {
@@ -30,31 +29,12 @@
   padding: 5px 8px;
   font-size: 15px;
   border-radius: 5px;
-  display: none;
+  visibility: hidden;
 }
 
 #tooltip[data-show] {
-  display: block;
+  visibility: visible;
 }
-
-
-#flipTooltip[data-popper-placement^="top"] > #arrow {
-  bottom: -4px;
-}
-
-#flipTooltip[data-popper-placement^="bottom"] > #arrow {
-  top: -4px;
-}
-
-#flipTooltip[data-popper-placement^="left"] > #arrow {
-  right: -4px;
-}
-
-#flipTooltip[data-popper-placement^="right"] > #arrow {
-  left: -4px;
-}
-
-
 
 #tooltip[data-popper-placement^="top"] > #arrow {
   bottom: -4px;
@@ -84,8 +64,24 @@
   visibility: hidden;
 }
 
-#arrow::before {
+#arrow[data-show]::before {
   visibility: visible;
   content: "";
   transform: rotate(45deg);
+}
+
+#flipTooltip[data-popper-placement^="top"] > #arrow {
+  bottom: -4px;
+}
+
+#flipTooltip[data-popper-placement^="bottom"] > #arrow {
+  top: -4px;
+}
+
+#flipTooltip[data-popper-placement^="left"] > #arrow {
+  right: -4px;
+}
+
+#flipTooltip[data-popper-placement^="right"] > #arrow {
+  left: -4px;
 }

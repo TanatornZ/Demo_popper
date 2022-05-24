@@ -32,7 +32,7 @@ function Filp({}: Props) {
   });
 
   return (
-    <div className="w-96 h-96 rounded-lg border-4 border-dotted overflow-auto  bg-white mx-auto mt-24 ">
+    <div className="w-96 h-96 rounded-lg border-4 border-dotted overflow-auto  bg-white mx-auto mt-12">
       <div className="w-[800px] h-[800px] bg-slate-300 flex justify-center items-center">
         <div id="container">
           <div
