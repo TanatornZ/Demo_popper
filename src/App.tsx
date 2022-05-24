@@ -58,7 +58,9 @@ function App() {
 
   return (
     <div className=" w-screen h-screen bg-slate-500 flex flex-col">
-      <div className="w-36 h-36 mx-auto mt-12">
+      <div className="w-48 h-36 mx-auto mt-12">
+
+        <p className='text-center my-3 text-white'>select hover possition</p>
         <Select
           onChange={(e) => {
             const option = e?.value;
