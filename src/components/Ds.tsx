@@ -57,6 +57,7 @@ export const Ds = () => {
     getMenuProps,
     highlightedIndex,
     getItemProps,
+
   } = useSelect({
     items,
     selectedItem: position,
@@ -69,9 +70,10 @@ export const Ds = () => {
     },
   });
 
+
   return (
-    <div className="mx-auto flex flex-col relative">
-      <div className="">
+    <div className="mx-auto flex flex-col ">
+      <div className="relative">
         <label {...getLabelProps()} className="text-xl block">
           Choose an possition (downshift.js)
         </label>
@@ -84,7 +86,10 @@ export const Ds = () => {
         </button>
         <ul
           {...getMenuProps()}
-          className="bg-white mt-2 rounded-lg overflow-hidden absolute  w-full"
+          className="mt-2 rounded-lg  overflow-auto absolute  w-full"
+          style={
+              isOpen ? 
+              {height: '150px' , backgroundColor: '#fff'} : {}} 
         >
           {isOpen &&
             items.map((item, index) => (
@@ -106,7 +111,7 @@ export const Ds = () => {
 
      
         <button
-          className="p-5 rounded-lg bg-red-100 self-center mx-auto my-12 "
+          className="p-5  rounded-lg bg-red-100 self-center mx-auto my-12 "
           ref={(ref) => setReferenceElement(ref)}
           aria-describedby="tooltip"
         >

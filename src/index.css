@@ -8,8 +8,8 @@
 
 #popcorn {
   display: inline-block;
-  width: 134px;
-  height: 120px;
+  width: 10rem;
+  height: 9rem;
   background-image: url("https://popper.js.org/images/popcorn-box.svg");
 }
 
@@ -29,11 +29,15 @@
   padding: 5px 8px;
   font-size: 15px;
   border-radius: 5px;
-  visibility: hidden;
+  /* visibility: hidden; */
+  opacity: 0;
+  transition: all 0.2s ease;
 }
 
 #tooltip[data-show] {
-  visibility: visible;
+  /* visibility: visible; */
+  opacity: 1;
+
 }
 
 #tooltip[data-popper-placement^="top"] > #arrow {
@@ -64,11 +68,12 @@
   visibility: hidden;
 }
 
-#arrow[data-show]::before {
+#arrow::before {
   visibility: visible;
   content: "";
   transform: rotate(45deg);
 }
+
 
 #flipTooltip[data-popper-placement^="top"] > #arrow {
   bottom: -4px;
