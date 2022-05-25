@@ -10,6 +10,7 @@ function App() {
       <div className="flex justify-center mt-12">
         {/* react-select */}
         <SelectPlacement />
+
         {/* DownShift js */}
         <Ds />
       </div>
