@@ -2,6 +2,7 @@ import { Placement } from "@popperjs/core";
 import React, { useState } from "react";
 import { usePopper } from "react-popper";
 import Select from "react-select";
+import { hoverToShow } from "../utils/hoverToShow";
 import { checkPosition } from "../utils/possition";
 
 type Props = {};
@@ -52,23 +53,7 @@ function SelectPlacement({}: Props) {
     ],
   });
 
-  const showToolTip = () => {
-    popperElement?.setAttribute("data-show", "");
-  };
-
-  const hideToolTip = () => {
-    popperElement?.removeAttribute("data-show");
-  };
-  const showEvents = ["mouseenter", "focus"];
-  const hideEvents = ["mouseleave", "blur"];
-
-  showEvents.forEach((event) => {
-    referenceElement?.addEventListener(event, showToolTip);
-  });
-
-  hideEvents.forEach((event) => {
-    referenceElement?.addEventListener(event, hideToolTip);
-  });
+  hoverToShow(referenceElement, popperElement, arrowElement);
 
   return (
     <div className="mx-auto  flex flex-col ">

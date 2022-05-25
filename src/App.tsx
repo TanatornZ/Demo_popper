@@ -8,7 +8,9 @@ function App() {
   return (
     <div className=" min-w-screen h-full min-h-screen bg-slate-500 flex flex-col">
       <div className="flex justify-center mt-12">
+        {/* react-select */}
         <SelectPlacement />
+        {/* DownShift js */}
         <Ds />
       </div>
 

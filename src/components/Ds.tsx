@@ -3,6 +3,7 @@ import Downshift, { useSelect } from "downshift";
 import { Placement } from "@popperjs/core";
 import { usePopper } from "react-popper";
 import { checkPosition } from "../utils/possition";
+import { hoverToShow } from "../utils/hoverToShow";
 
 const items = ["top","top-start","top-end" , "right" ,"right-start" , "right-end" , "bottom","bottom-start" ,"bottom-end", "left","left-start" , "left-end" ];
 
@@ -29,25 +30,7 @@ export const Ds = () => {
     ],
   });
 
-  const showToolTip = () => {
-    popperElement?.setAttribute("data-show", "");
-    arrowElement?.setAttribute("data-show", "");
-  };
-
-  const hideToolTip = () => {
-    popperElement?.removeAttribute("data-show");
-    arrowElement?.removeAttribute("data-show");
-  };
-  const showEvents = ["mouseenter", "focus"];
-  const hideEvents = ["mouseleave", "blur"];
-
-  showEvents.forEach((event) => {
-    referenceElement?.addEventListener(event, showToolTip);
-  });
-
-  hideEvents.forEach((event) => {
-    referenceElement?.addEventListener(event, hideToolTip);
-  });
+  hoverToShow(referenceElement, popperElement,arrowElement)
 
   const {
     isOpen,
