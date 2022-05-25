@@ -71,10 +71,10 @@ export const Ds = () => {
           </button>
           <ul
             {...getMenuProps()}
-            className={`mt-2 rounded-lg  overflow-auto absolute w-full ${
+            className={`mt-2 rounded-lg  overflow-auto  absolute w-full z-10 ${
               selectPosition === "top" ? "top-16" : "bottom-16"
             }`}
-            style={isOpen ? { height: "150px", backgroundColor: "#fff" } : {}}
+            style={isOpen ? { height: "200px", backgroundColor: "#fff" } : {}}
           >
             {isOpen &&
               items.map((item, index) => (
