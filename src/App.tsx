@@ -1,7 +1,7 @@
 import "./App.css";
 
 import Filp from "./components/Filp";
-import { Ds } from "./components/Ds";
+import { Ds } from "./components/DownShift";
 import SelectPlacement from "./components/SelectPlacement";
 
 function App() {
