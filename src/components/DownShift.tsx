@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useSelect } from "downshift";
 import { Placement } from "@popperjs/core";
 import { checkPosition } from "../utils/possition";
@@ -21,6 +21,8 @@ const items = [
 
 export const Ds = () => {
   const [position, setPosition] = useState<Placement>("top");
+  const [selectPosition, setSelectPosition] = useState<string>("top");
+  const box = useRef<HTMLDivElement | null>(null);
 
   const {
     isOpen,
@@ -41,40 +43,56 @@ export const Ds = () => {
     },
   });
 
+  const boxTop = box.current?.offsetTop;
+
+  if (boxTop) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY + window.innerHeight - 256 < boxTop) {
+        setSelectPosition("bottom");
+      } else {
+        setSelectPosition("top");
+      }
+    });
+  }
+
   return (
     <div className="mx-auto flex flex-col ">
-      <div className="relative">
+      <div className="">
         <label {...getLabelProps()} className="text-xl block">
           Choose an possition (downshift.js)
         </label>
-        <button
-          type="button"
-          {...getToggleButtonProps()}
-          className="p-2 mt-5 bg-white rounded-lg w-full"
-        >
-          {selectedItem || "click to select possition"}
-        </button>
-        <ul
-          {...getMenuProps()}
-          className="mt-2 rounded-lg  overflow-auto absolute  w-full"
-          style={isOpen ? { height: "150px", backgroundColor: "#fff" } : {}}
-        >
-          {isOpen &&
-            items.map((item, index) => (
-              <li
-                className=" p-2 text-center cursor-pointer"
-                style={
-                  highlightedIndex === index
-                    ? { backgroundColor: "#bde4ff" }
-                    : {}
-                }
-                key={`${index}`}
-                {...getItemProps({ item, index })}
-              >
-                {item}
-              </li>
-            ))}
-        </ul>
+        <div className="relative" ref={box}>
+          <button
+            type="button"
+            {...getToggleButtonProps()}
+            className="p-2 mt-5 bg-white rounded-lg w-full"
+          >
+            {selectedItem || "click to select possition"}
+          </button>
+          <ul
+            {...getMenuProps()}
+            className={`mt-2 rounded-lg  overflow-auto absolute w-full ${
+              selectPosition === "top" ? "top-16" : "bottom-16"
+            }`}
+            style={isOpen ? { height: "150px", backgroundColor: "#fff" } : {}}
+          >
+            {isOpen &&
+              items.map((item, index) => (
+                <li
+                  className=" p-2 text-center cursor-pointer"
+                  style={
+                    highlightedIndex === index
+                      ? { backgroundColor: "#bde4ff" }
+                      : {}
+                  }
+                  key={`${index}`}
+                  {...getItemProps({ item, index })}
+                >
+                  {item}
+                </li>
+              ))}
+          </ul>
+        </div>
       </div>
 
       <BoxPopper position={position} />
