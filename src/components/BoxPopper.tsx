@@ -1,5 +1,5 @@
-import { Placement } from "@popperjs/core";
-import React, { useState } from "react";
+import { Placement, Rect } from "@popperjs/core";
+import React, { useEffect, useRef, useState } from "react";
 import { usePopper } from "react-popper";
 import { hoverToShow } from "../utils/hoverToShow";
 
@@ -10,34 +10,58 @@ type Props = {
 function BoxPopper({ position }: Props) {
   const [referenceElement, setReferenceElement] =
     useState<HTMLButtonElement | null>(null);
-  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
-    null
-  );
-  const [arrowElement, setArrowElement] = useState<HTMLDivElement | null>(null);
+  
+  const [popperElement, setPopperElement] =
+    useState<HTMLElement | null>(null);
+
+
+  const elementRef = useRef(null);
+  const elementPopperRef = useRef(null);
+  const elementArrowRef = useRef(null);
+
+  useEffect(() => {
+    setReferenceElement(elementRef.current);
+    setPopperElement(elementPopperRef.current);
+
+  }, []);
+
+
 
   //popper
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: position,
-    modifiers: [
-      {
-        name: "offset",
-        options: {
-          offset: [0, 8],
+  const { styles, attributes } = usePopper(
+    referenceElement,
+    popperElement,
+    {
+      placement: position,
+      modifiers: [
+        {
+          name: "offset",
+          options: {
+            offset: [0, 8],
+          },
         },
-      },
-      { name: "arrow", options: { element: arrowElement, padding: 5 } },
-    ],
-  });
+        {
+          name: "arrow",
+          options: {
+            element: elementArrowRef.current,
+            padding: ({popper: popperElement }) => popperElement.offsetWidth / 2
+          },
+        },
+      ],
+    }
+  );
 
-  
-
-  hoverToShow(referenceElement, popperElement, arrowElement);
+  hoverToShow(
+    elementRef.current,
+    elementPopperRef.current,
+    elementArrowRef.current
+  );
 
   return (
     <>
       <button
         className="p-5 rounded-lg bg-red-100 self-center my-12"
-        ref={(ref) => setReferenceElement(ref)}
+        ref={elementRef}
         aria-describedby="tooltip"
       >
         Hover to show popper
@@ -45,14 +69,14 @@ function BoxPopper({ position }: Props) {
       <div
         id="tooltip"
         role="tooltip"
-        ref={(ref) => setPopperElement(ref)}
+        ref={elementPopperRef}
         style={styles.popper}
         {...attributes.popper}
       >
         popper
         <div
           id="arrow"
-          ref={(ref) => setArrowElement(ref)}
+          ref={elementArrowRef}
           style={styles.arrow}
           data-popper-arrow
         ></div>

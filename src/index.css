@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --popper: 10px;
+
+}
+
 #container {
   position: relative;
 }
@@ -27,7 +32,7 @@
   color: #333;
   font-weight: bold;
   padding: 5px 8px;
-  font-size: 15px;
+  font-size: var(--popper);
   border-radius: 5px;
   /* visibility: hidden; */
   opacity: 0;
@@ -37,24 +42,47 @@
 #tooltip[data-show] {
   /* visibility: visible; */
   opacity: 1;
-
 }
 
-#tooltip[data-popper-placement^="top"] > #arrow {
+#tooltip[data-popper-placement^='top'] > #arrow {
   bottom: -4px;
 }
 
-#tooltip[data-popper-placement^="bottom"] > #arrow {
+#tooltip[data-popper-placement^='bottom'] > #arrow {
   top: -4px;
 }
 
-#tooltip[data-popper-placement^="left"] > #arrow {
+#tooltip[data-popper-placement^='left'] > #arrow {
   right: -4px;
 }
 
-#tooltip[data-popper-placement^="right"] > #arrow {
+#tooltip[data-popper-placement^='right'] > #arrow {
   left: -4px;
 }
+/* 
+#tooltip[data-popper-placement^="top"] > #arrow {
+  left: 0;
+  transform: translate3d(calc(var(--popper) *1.8), 0px, 0px);
+}
+
+#tooltip[data-popper-placement^="bottom"] > #arrow {
+  left: 0;
+  transform: translate3d(calc(var(--popper) *1.8), calc(var(--popper) * -1.9), 0px);
+}
+
+#tooltip[data-popper-placement^="left"] > #arrow {
+  top: 0;
+  right: calc(var(--popper) * -0.12);;
+  transform: translate3d(0px, calc(var(--popper) * 0.8), 0px);
+}
+
+
+
+#tooltip[data-popper-placement^="right"] > #arrow {
+  top: 0;
+  left: calc(var(--popper) * -0.12);
+  transform: translate3d(0px, calc(var(--popper) * 0.8), 0px);
+} */
 
 #arrow,
 #arrow::before {
@@ -65,6 +93,8 @@
 }
 
 #arrow {
+  position: absolute;
+  left: 0;
   visibility: hidden;
 }
 
@@ -73,7 +103,6 @@
   content: "";
   transform: rotate(45deg);
 }
-
 
 #flipTooltip[data-popper-placement^="top"] > #arrow {
   bottom: -4px;

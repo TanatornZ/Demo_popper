@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelect } from "downshift";
 import { Placement } from "@popperjs/core";
 import { checkPosition } from "../utils/possition";
@@ -22,7 +22,8 @@ const items = [
 export const Ds = () => {
   const [position, setPosition] = useState<Placement>("top");
   const [selectPosition, setSelectPosition] = useState<string>("top");
-  const box = useRef<HTMLDivElement | null>(null);
+  const [elementBox, setElementBox] = useState<HTMLDivElement | null>();
+  const box = useRef<HTMLDivElement>(null);
 
   const {
     isOpen,
@@ -43,17 +44,25 @@ export const Ds = () => {
     },
   });
 
-  const boxTop = box.current?.offsetTop;
+  useEffect(() => {
+    setElementBox(box.current);
+  }, []);
 
-  if (boxTop) {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY + window.innerHeight - 256 < boxTop) {
-        setSelectPosition("bottom");
-      } else {
-        setSelectPosition("top");
-      }
-    });
-  }
+  const dropPosition = () => {
+    const boxTop = elementBox?.offsetTop;
+
+    if (boxTop) {
+      window.addEventListener("scroll", () => {
+        if (window.scrollY + window.innerHeight - 256 < boxTop) {
+          setSelectPosition("bottom");
+        } else {
+          setSelectPosition("top");
+        }
+      });
+    }
+  };
+
+  dropPosition()
 
   return (
     <div className="mx-auto flex flex-col ">
@@ -72,7 +81,7 @@ export const Ds = () => {
           <ul
             {...getMenuProps()}
             className={`mt-2 rounded-lg  overflow-auto  absolute w-full z-10 ${
-              selectPosition === "top" ? "top-16" : "bottom-16"
+              selectPosition === "top" ? "top-16" : "bottom-14"
             }`}
             style={isOpen ? { height: "200px", backgroundColor: "#fff" } : {}}
           >
