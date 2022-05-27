@@ -10,10 +10,6 @@ type Props = {
 function BoxPopper({ position }: Props) {
   const [referenceElement, setReferenceElement] =
     useState<HTMLButtonElement | null>(null);
-  
-  const [popperElement, setPopperElement] =
-    useState<HTMLElement | null>(null);
-
 
   const elementRef = useRef(null);
   const elementPopperRef = useRef(null);
@@ -21,8 +17,6 @@ function BoxPopper({ position }: Props) {
 
   useEffect(() => {
     setReferenceElement(elementRef.current);
-    setPopperElement(elementPopperRef.current);
-
   }, []);
 
 
@@ -30,7 +24,7 @@ function BoxPopper({ position }: Props) {
   //popper
   const { styles, attributes } = usePopper(
     referenceElement,
-    popperElement,
+    elementPopperRef.current,
     {
       placement: position,
       modifiers: [
@@ -44,7 +38,7 @@ function BoxPopper({ position }: Props) {
           name: "arrow",
           options: {
             element: elementArrowRef.current,
-            padding: ({popper: popperElement }) => popperElement.offsetWidth / 2
+            padding: 5,
           },
         },
       ],
@@ -54,7 +48,8 @@ function BoxPopper({ position }: Props) {
   hoverToShow(
     elementRef.current,
     elementPopperRef.current,
-    elementArrowRef.current
+    elementArrowRef.current,
+    
   );
 
   return (

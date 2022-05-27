@@ -7,7 +7,6 @@ import BoxPopper from "./BoxPopper";
 type Props = {};
 
 function SelectPlacement({}: Props) {
-  const [option, setOption] = useState<string>("");
   const [position, setPosition] = useState<Placement>("top");
 
   const options = [
@@ -36,7 +35,6 @@ function SelectPlacement({}: Props) {
           onChange={(e) => {
             const option = e?.value;
             if (option) {
-              setOption(option);
               const pos = checkPosition(option);
               if (pos) setPosition(pos);
             }
